@@ -43,10 +43,16 @@ public:
 class UndeadAdapter : public Character {
     shared_ptr<Undead> undead;
 public:
-    UndeadAdapter(shared_ptr<Undead> u) { 
+    UndeadAdapter(shared_ptr<Undead> u) : undead(u) { 
         /* TODO */
+        description = u->name();   
+
+        if (description == "Zombie")       type = CharacterType::Zombie;
+        else if (description == "Skeleton") type = CharacterType::Skeleton;
+        else if (description == "Lich")     type = CharacterType::Lich;
+        else type = CharacterType::Unknown;
     }
-    int getAttack() const override { /* TODO */ return 0; }
-    int getSpeed() const override { /* TODO */ return 0; }
-    int getDefense() const override { /* TODO */ return 0; }
+    int getAttack() const override { /* TODO */ return undead->power(); }
+    int getSpeed() const override { /* TODO */ return undead->agility(); }
+    int getDefense() const override { /* TODO */ return undead->endurance(); }
 };
